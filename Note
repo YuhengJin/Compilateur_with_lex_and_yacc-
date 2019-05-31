@@ -1,0 +1,112 @@
+homepages.laas.fr/radelin
+
+Prof:ymao@laas.fr
+
+apt install flex bison
+
+
+spécification de languages  -> flex -> analyse lescical    programme en C  -> analyseur lexicqle -> token
+
+
+yacc -d compiler.y
+
+##########Makefile
+Un Makefile est un fichier constitué de plusieurs règles de la forme : 
+cible: dependance
+	commandes
+
+
+make
+ ./compiler < eric.c
+
+
+
+
+int main(){
+	int a=22==33;
+}
+
+
+
+
+
+	expression tNOTEQU expression
+		{
+			printf("******* CONDITIONS ********");
+			instr_add("LOAD",0, last_sys_adr(),0);
+			ts_delete();
+			instr_add("LOAD",1, last_sys_adr(),0);
+			instr_add("NEQU",0,1,2);
+			instr_add("STORE",last_sys_adr(),0,0);
+		}
+	|expression tINFEQU expression
+		{
+			printf("******* CONDITIONS ********");
+			instr_add("LOAD",0, last_sys_adr(),0);
+			ts_delete();
+			instr_add("LOAD",1, last_sys_adr(),0);
+			instr_add("INFE",0,1,2);
+			instr_add("STORE",last_sys_adr(),0,0);
+		}
+	|expression tSUPEQU expression
+		{
+			printf("******* CONDITIONS ********");
+			instr_add("LOAD",0, last_sys_adr(),0);
+			ts_delete();
+			instr_add("LOAD",1, last_sys_adr(),0);
+			instr_add("SUPE",0,1,2);
+			instr_add("STORE",last_sys_adr(),0,0);
+		}
+	|expression tINF expression
+		{
+			printf("******* CONDITIONS ********");
+			instr_add("LOAD",0, last_sys_adr(),0);
+			ts_delete();
+			instr_add("LOAD",1, last_sys_adr(),0);
+			instr_add("INF",0,1,2);
+			instr_add("STORE",last_sys_adr(),0,0);
+		}
+	|expression tSUP expression
+		{
+			printf("******* CONDITIONS ********");
+			instr_add("LOAD",0, last_sys_adr(),0);
+			ts_delete();
+			instr_add("LOAD",1, last_sys_adr(),0);
+			instr_add("SUP",0,1,2);
+			instr_add("STORE",last_sys_adr(),0,0);
+		}
+
+
+
+if(8<9){
+		int a=15;
+	}else{
+		int b=16;
+		int c=20;
+		int g=80;	
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

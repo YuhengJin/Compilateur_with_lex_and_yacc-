@@ -1,0 +1,132 @@
+%%
+%{
+	#include "y.tab.c"
+
+%}
+
+
+"main" {return ("tMAIN\n");};
+"{"   {return("tAO\n");}
+"}"  {return(tAF);}
+
+"const"    {return("tCONST\n");}
+"int"    {return("tINT\n");}
+
+
+">"     {return(tSUP);}
+"<"     {return("tINF\n");}
+"="    {return("tEAGLE\n");}
+"\t"    {return("tTAB\n");}
+" "    {return("tESPACE\n");}
+"+"    {return("tPLUS\n");}
+"-"    {return("tMOINS\n");}
+"*"    {return("tETOILE\n");}
+"/"    {return("tSLASH\n");}
+"("    {return("tPO\n");}
+")"    {return("tPF\n");}
+","    {return("tVI\n");}
+";"    {return("tPV\n");}
+"\n"    {return("tFIN\n");}
+"while"  {return("tWHILE\n");}
+"if"     {return("tIF\n");}
+"else"     {return("tELSE\n");}
+
+
+
+
+[a-z][a-zA-Z0-9_]*  {return(tNOM);}
+[0-9]+   {return(tENTIER);}
+
+
+. {return(error);}
+
+
+
+
+
+#[a-z][a-zA-Z0-9_]*  {e2 = tID;
+#						return(tID);}
+#[0-9]+   {yylval e = atoi(yytext);
+#			return(tENTIER);}
+
+
+
+
+//int main(){
+	int a;
+	int a=3;
+	/*if(a==3){a=4;}
+	int c=a*4;
+	int c=a*b;
+
+	a=a/4+2;							
+	
+	a=a/4+2;
+	a=a+2*5;
+	a=b-3;	
+
+	if(a!=3){a=4;}	
+	if(a<=10){a=4;}
+	if(a>=3){a=4;}
+	if(a<20){a=4;}
+	if(a>1){a=5;}
+
+	if(a>1){
+		a=5;
+	}
+	else {
+		a=30;
+	}
+
+	while(a==5){
+		a=a-1;
+	}
+	while(b<6){
+		b=b*1;
+	}
+	while(a==4 && b<10){
+		b=10;
+	}
+	
+
+	*/
+	
+	
+
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

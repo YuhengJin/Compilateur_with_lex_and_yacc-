@@ -1,0 +1,1317 @@
+Terminaux inutilisés dans la grammaire
+
+   tTAB
+   tBACK
+   tESPACE
+   tPE
+   tFIN
+   terror
+   tAND
+   tOR
+   tTRUE
+   tFALSE
+
+
+Grammaire
+
+    0 $accept: start $end
+
+    1 start: fonctions
+
+    2 fonctions: fonction fonctions
+    3          | %empty
+
+    4 fonction: Type element tPO args tPF tAO instructions tAF
+    5         | Type tMAIN tPO args tPF body
+
+    6 body: tAO instructions tAF
+
+    7 instruction: affectation
+    8            | declaration
+    9            | print
+   10            | appelFonction
+   11            | si
+   12            | while
+
+   13 instructions: instruction instructions
+   14             | %empty
+
+   15 args: arg args_suite
+   16     | %empty
+
+   17 args_suite: tVI arg args_suite
+   18           | %empty
+
+   19 arg: Type element
+
+   20 $@1: %empty
+
+   21 $@2: %empty
+
+   22 $@3: %empty
+
+   23 si: tIF tPO conditions tPF $@1 body $@2 tELSE $@3 body
+
+   24 $@4: %empty
+
+   25 $@5: %empty
+
+   26 while: tWHILE $@4 tPO conditions tPF $@5 body
+
+   27 expression: expression tETOILE expression
+   28           | expression tSLASH expression
+   29           | expression tPLUS expression
+   30           | expression tMOINS expression
+   31           | element
+
+   32 element: tID
+   33        | tENTIER
+   34        | appelFonction
+
+   35 appelFonction: element tPO args tPF
+
+   36 declaration: Type decl_id declaration2 tPV
+
+   37 declaration2: %empty
+   38             | tVI decl_id declaration2
+
+   39 decl_id: tID
+   40        | tID tEAGLE expression
+   41        | tID tEAGLE conditions
+
+   42 conditions: expression tNOTEQU expression
+   43           | expression tEQU expression
+   44           | expression tINFEQU expression
+   45           | expression tSUPEQU expression
+   46           | expression tINF expression
+   47           | expression tSUP expression
+
+   48 affectation: tID tEAGLE expression tPV
+
+   49 print: tPRINTF tPO element tPF tPV
+
+   50 Type: tINT
+   51     | tCONST
+   52     | tCHAR
+
+
+Terminaux, suivis des règles où ils apparaissent
+
+$end (0) 0
+error (256)
+tMAIN (258) 5
+tAO (259) 4 6
+tAF (260) 4 6
+tCONST (261) 51
+tINT (262) 50
+tCHAR (263) 52
+tSUPEQU (264) 45
+tSUP (265) 47
+tINFEQU (266) 44
+tINF (267) 46
+tTAB (268)
+tBACK (269)
+tESPACE (270)
+tEQU (271) 43
+tNOTEQU (272) 42
+tPLUS (273) 29
+tMOINS (274) 30
+tETOILE (275) 27
+tSLASH (276) 28
+tPE (277)
+tEAGLE (278) 40 41 48
+tPO (279) 4 5 23 26 35 49
+tPF (280) 4 5 23 26 35 49
+tVI (281) 17 38
+tPV (282) 36 48 49
+tFIN (283)
+tWHILE (284) 26
+tIF (285) 23
+tELSE (286) 23
+tENTIER (287) 33
+tID (288) 32 39 40 41 48
+tPRINTF (289) 49
+terror (290)
+tAND (291)
+tOR (292)
+tTRUE (293)
+tFALSE (294)
+
+
+Non-terminaux, suivis des règles où ils apparaissent
+
+$accept (40)
+    à gauche: 0
+start (41)
+    à gauche: 1, à droite: 0
+fonctions (42)
+    à gauche: 2 3, à droite: 1 2
+fonction (43)
+    à gauche: 4 5, à droite: 2
+body (44)
+    à gauche: 6, à droite: 5 23 26
+instruction (45)
+    à gauche: 7 8 9 10 11 12, à droite: 13
+instructions (46)
+    à gauche: 13 14, à droite: 4 6 13
+args (47)
+    à gauche: 15 16, à droite: 4 5 35
+args_suite (48)
+    à gauche: 17 18, à droite: 15 17
+arg (49)
+    à gauche: 19, à droite: 15 17
+si (50)
+    à gauche: 23, à droite: 11
+$@1 (51)
+    à gauche: 20, à droite: 23
+$@2 (52)
+    à gauche: 21, à droite: 23
+$@3 (53)
+    à gauche: 22, à droite: 23
+while (54)
+    à gauche: 26, à droite: 12
+$@4 (55)
+    à gauche: 24, à droite: 26
+$@5 (56)
+    à gauche: 25, à droite: 26
+expression (57)
+    à gauche: 27 28 29 30 31, à droite: 27 28 29 30 40 42 43 44 45
+    46 47 48
+element (58)
+    à gauche: 32 33 34, à droite: 4 19 31 35 49
+appelFonction (59)
+    à gauche: 35, à droite: 10 34
+declaration (60)
+    à gauche: 36, à droite: 8
+declaration2 (61)
+    à gauche: 37 38, à droite: 36 38
+decl_id (62)
+    à gauche: 39 40 41, à droite: 36 38
+conditions (63)
+    à gauche: 42 43 44 45 46 47, à droite: 23 26 41
+affectation (64)
+    à gauche: 48, à droite: 7
+print (65)
+    à gauche: 49, à droite: 9
+Type (66)
+    à gauche: 50 51 52, à droite: 4 5 19 36
+
+
+État 0
+
+    0 $accept: . start $end
+
+    tCONST  décalage et aller à l'état 1
+    tINT    décalage et aller à l'état 2
+    tCHAR   décalage et aller à l'état 3
+
+    $défaut  réduction par utilisation de la règle 3 (fonctions)
+
+    start      aller à l'état 4
+    fonctions  aller à l'état 5
+    fonction   aller à l'état 6
+    Type       aller à l'état 7
+
+
+État 1
+
+   51 Type: tCONST .
+
+    $défaut  réduction par utilisation de la règle 51 (Type)
+
+
+État 2
+
+   50 Type: tINT .
+
+    $défaut  réduction par utilisation de la règle 50 (Type)
+
+
+État 3
+
+   52 Type: tCHAR .
+
+    $défaut  réduction par utilisation de la règle 52 (Type)
+
+
+État 4
+
+    0 $accept: start . $end
+
+    $end  décalage et aller à l'état 8
+
+
+État 5
+
+    1 start: fonctions .
+
+    $défaut  réduction par utilisation de la règle 1 (start)
+
+
+État 6
+
+    2 fonctions: fonction . fonctions
+
+    tCONST  décalage et aller à l'état 1
+    tINT    décalage et aller à l'état 2
+    tCHAR   décalage et aller à l'état 3
+
+    $défaut  réduction par utilisation de la règle 3 (fonctions)
+
+    fonctions  aller à l'état 9
+    fonction   aller à l'état 6
+    Type       aller à l'état 7
+
+
+État 7
+
+    4 fonction: Type . element tPO args tPF tAO instructions tAF
+    5         | Type . tMAIN tPO args tPF body
+
+    tMAIN    décalage et aller à l'état 10
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    element        aller à l'état 13
+    appelFonction  aller à l'état 14
+
+
+État 8
+
+    0 $accept: start $end .
+
+    $défaut  accepter
+
+
+État 9
+
+    2 fonctions: fonction fonctions .
+
+    $défaut  réduction par utilisation de la règle 2 (fonctions)
+
+
+État 10
+
+    5 fonction: Type tMAIN . tPO args tPF body
+
+    tPO  décalage et aller à l'état 15
+
+
+État 11
+
+   33 element: tENTIER .
+
+    $défaut  réduction par utilisation de la règle 33 (element)
+
+
+État 12
+
+   32 element: tID .
+
+    $défaut  réduction par utilisation de la règle 32 (element)
+
+
+État 13
+
+    4 fonction: Type element . tPO args tPF tAO instructions tAF
+   35 appelFonction: element . tPO args tPF
+
+    tPO  décalage et aller à l'état 16
+
+
+État 14
+
+   34 element: appelFonction .
+
+    $défaut  réduction par utilisation de la règle 34 (element)
+
+
+État 15
+
+    5 fonction: Type tMAIN tPO . args tPF body
+
+    tCONST  décalage et aller à l'état 1
+    tINT    décalage et aller à l'état 2
+    tCHAR   décalage et aller à l'état 3
+
+    $défaut  réduction par utilisation de la règle 16 (args)
+
+    args  aller à l'état 17
+    arg   aller à l'état 18
+    Type  aller à l'état 19
+
+
+État 16
+
+    4 fonction: Type element tPO . args tPF tAO instructions tAF
+   35 appelFonction: element tPO . args tPF
+
+    tCONST  décalage et aller à l'état 1
+    tINT    décalage et aller à l'état 2
+    tCHAR   décalage et aller à l'état 3
+
+    $défaut  réduction par utilisation de la règle 16 (args)
+
+    args  aller à l'état 20
+    arg   aller à l'état 18
+    Type  aller à l'état 19
+
+
+État 17
+
+    5 fonction: Type tMAIN tPO args . tPF body
+
+    tPF  décalage et aller à l'état 21
+
+
+État 18
+
+   15 args: arg . args_suite
+
+    tVI  décalage et aller à l'état 22
+
+    $défaut  réduction par utilisation de la règle 18 (args_suite)
+
+    args_suite  aller à l'état 23
+
+
+État 19
+
+   19 arg: Type . element
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    element        aller à l'état 24
+    appelFonction  aller à l'état 14
+
+
+État 20
+
+    4 fonction: Type element tPO args . tPF tAO instructions tAF
+   35 appelFonction: element tPO args . tPF
+
+    tPF  décalage et aller à l'état 25
+
+
+État 21
+
+    5 fonction: Type tMAIN tPO args tPF . body
+
+    tAO  décalage et aller à l'état 26
+
+    body  aller à l'état 27
+
+
+État 22
+
+   17 args_suite: tVI . arg args_suite
+
+    tCONST  décalage et aller à l'état 1
+    tINT    décalage et aller à l'état 2
+    tCHAR   décalage et aller à l'état 3
+
+    arg   aller à l'état 28
+    Type  aller à l'état 19
+
+
+État 23
+
+   15 args: arg args_suite .
+
+    $défaut  réduction par utilisation de la règle 15 (args)
+
+
+État 24
+
+   19 arg: Type element .
+   35 appelFonction: element . tPO args tPF
+
+    tPO  décalage et aller à l'état 29
+
+    $défaut  réduction par utilisation de la règle 19 (arg)
+
+
+État 25
+
+    4 fonction: Type element tPO args tPF . tAO instructions tAF
+   35 appelFonction: element tPO args tPF .
+
+    tAO  décalage et aller à l'état 30
+
+    $défaut  réduction par utilisation de la règle 35 (appelFonction)
+
+
+État 26
+
+    6 body: tAO . instructions tAF
+
+    tCONST   décalage et aller à l'état 1
+    tINT     décalage et aller à l'état 2
+    tCHAR    décalage et aller à l'état 3
+    tWHILE   décalage et aller à l'état 31
+    tIF      décalage et aller à l'état 32
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 33
+    tPRINTF  décalage et aller à l'état 34
+
+    $défaut  réduction par utilisation de la règle 14 (instructions)
+
+    instruction    aller à l'état 35
+    instructions   aller à l'état 36
+    si             aller à l'état 37
+    while          aller à l'état 38
+    element        aller à l'état 39
+    appelFonction  aller à l'état 40
+    declaration    aller à l'état 41
+    affectation    aller à l'état 42
+    print          aller à l'état 43
+    Type           aller à l'état 44
+
+
+État 27
+
+    5 fonction: Type tMAIN tPO args tPF body .
+
+    $défaut  réduction par utilisation de la règle 5 (fonction)
+
+
+État 28
+
+   17 args_suite: tVI arg . args_suite
+
+    tVI  décalage et aller à l'état 22
+
+    $défaut  réduction par utilisation de la règle 18 (args_suite)
+
+    args_suite  aller à l'état 45
+
+
+État 29
+
+   35 appelFonction: element tPO . args tPF
+
+    tCONST  décalage et aller à l'état 1
+    tINT    décalage et aller à l'état 2
+    tCHAR   décalage et aller à l'état 3
+
+    $défaut  réduction par utilisation de la règle 16 (args)
+
+    args  aller à l'état 46
+    arg   aller à l'état 18
+    Type  aller à l'état 19
+
+
+État 30
+
+    4 fonction: Type element tPO args tPF tAO . instructions tAF
+
+    tCONST   décalage et aller à l'état 1
+    tINT     décalage et aller à l'état 2
+    tCHAR    décalage et aller à l'état 3
+    tWHILE   décalage et aller à l'état 31
+    tIF      décalage et aller à l'état 32
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 33
+    tPRINTF  décalage et aller à l'état 34
+
+    $défaut  réduction par utilisation de la règle 14 (instructions)
+
+    instruction    aller à l'état 35
+    instructions   aller à l'état 47
+    si             aller à l'état 37
+    while          aller à l'état 38
+    element        aller à l'état 39
+    appelFonction  aller à l'état 40
+    declaration    aller à l'état 41
+    affectation    aller à l'état 42
+    print          aller à l'état 43
+    Type           aller à l'état 44
+
+
+État 31
+
+   26 while: tWHILE . $@4 tPO conditions tPF $@5 body
+
+    $défaut  réduction par utilisation de la règle 24 ($@4)
+
+    $@4  aller à l'état 48
+
+
+État 32
+
+   23 si: tIF . tPO conditions tPF $@1 body $@2 tELSE $@3 body
+
+    tPO  décalage et aller à l'état 49
+
+
+État 33
+
+   32 element: tID .
+   48 affectation: tID . tEAGLE expression tPV
+
+    tEAGLE  décalage et aller à l'état 50
+
+    $défaut  réduction par utilisation de la règle 32 (element)
+
+
+État 34
+
+   49 print: tPRINTF . tPO element tPF tPV
+
+    tPO  décalage et aller à l'état 51
+
+
+État 35
+
+   13 instructions: instruction . instructions
+
+    tCONST   décalage et aller à l'état 1
+    tINT     décalage et aller à l'état 2
+    tCHAR    décalage et aller à l'état 3
+    tWHILE   décalage et aller à l'état 31
+    tIF      décalage et aller à l'état 32
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 33
+    tPRINTF  décalage et aller à l'état 34
+
+    $défaut  réduction par utilisation de la règle 14 (instructions)
+
+    instruction    aller à l'état 35
+    instructions   aller à l'état 52
+    si             aller à l'état 37
+    while          aller à l'état 38
+    element        aller à l'état 39
+    appelFonction  aller à l'état 40
+    declaration    aller à l'état 41
+    affectation    aller à l'état 42
+    print          aller à l'état 43
+    Type           aller à l'état 44
+
+
+État 36
+
+    6 body: tAO instructions . tAF
+
+    tAF  décalage et aller à l'état 53
+
+
+État 37
+
+   11 instruction: si .
+
+    $défaut  réduction par utilisation de la règle 11 (instruction)
+
+
+État 38
+
+   12 instruction: while .
+
+    $défaut  réduction par utilisation de la règle 12 (instruction)
+
+
+État 39
+
+   35 appelFonction: element . tPO args tPF
+
+    tPO  décalage et aller à l'état 29
+
+
+État 40
+
+   10 instruction: appelFonction .
+   34 element: appelFonction .
+
+    tPO       réduction par utilisation de la règle 34 (element)
+    $défaut  réduction par utilisation de la règle 10 (instruction)
+
+
+État 41
+
+    8 instruction: declaration .
+
+    $défaut  réduction par utilisation de la règle 8 (instruction)
+
+
+État 42
+
+    7 instruction: affectation .
+
+    $défaut  réduction par utilisation de la règle 7 (instruction)
+
+
+État 43
+
+    9 instruction: print .
+
+    $défaut  réduction par utilisation de la règle 9 (instruction)
+
+
+État 44
+
+   36 declaration: Type . decl_id declaration2 tPV
+
+    tID  décalage et aller à l'état 54
+
+    decl_id  aller à l'état 55
+
+
+État 45
+
+   17 args_suite: tVI arg args_suite .
+
+    $défaut  réduction par utilisation de la règle 17 (args_suite)
+
+
+État 46
+
+   35 appelFonction: element tPO args . tPF
+
+    tPF  décalage et aller à l'état 56
+
+
+État 47
+
+    4 fonction: Type element tPO args tPF tAO instructions . tAF
+
+    tAF  décalage et aller à l'état 57
+
+
+État 48
+
+   26 while: tWHILE $@4 . tPO conditions tPF $@5 body
+
+    tPO  décalage et aller à l'état 58
+
+
+État 49
+
+   23 si: tIF tPO . conditions tPF $@1 body $@2 tELSE $@3 body
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 59
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+    conditions     aller à l'état 61
+
+
+État 50
+
+   48 affectation: tID tEAGLE . expression tPV
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 62
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 51
+
+   49 print: tPRINTF tPO . element tPF tPV
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    element        aller à l'état 63
+    appelFonction  aller à l'état 14
+
+
+État 52
+
+   13 instructions: instruction instructions .
+
+    $défaut  réduction par utilisation de la règle 13 (instructions)
+
+
+État 53
+
+    6 body: tAO instructions tAF .
+
+    $défaut  réduction par utilisation de la règle 6 (body)
+
+
+État 54
+
+   39 decl_id: tID .
+   40        | tID . tEAGLE expression
+   41        | tID . tEAGLE conditions
+
+    tEAGLE  décalage et aller à l'état 64
+
+    $défaut  réduction par utilisation de la règle 39 (decl_id)
+
+
+État 55
+
+   36 declaration: Type decl_id . declaration2 tPV
+
+    tVI  décalage et aller à l'état 65
+
+    $défaut  réduction par utilisation de la règle 37 (declaration2)
+
+    declaration2  aller à l'état 66
+
+
+État 56
+
+   35 appelFonction: element tPO args tPF .
+
+    $défaut  réduction par utilisation de la règle 35 (appelFonction)
+
+
+État 57
+
+    4 fonction: Type element tPO args tPF tAO instructions tAF .
+
+    $défaut  réduction par utilisation de la règle 4 (fonction)
+
+
+État 58
+
+   26 while: tWHILE $@4 tPO . conditions tPF $@5 body
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 59
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+    conditions     aller à l'état 67
+
+
+État 59
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+   42 conditions: expression . tNOTEQU expression
+   43           | expression . tEQU expression
+   44           | expression . tINFEQU expression
+   45           | expression . tSUPEQU expression
+   46           | expression . tINF expression
+   47           | expression . tSUP expression
+
+    tSUPEQU  décalage et aller à l'état 68
+    tSUP     décalage et aller à l'état 69
+    tINFEQU  décalage et aller à l'état 70
+    tINF     décalage et aller à l'état 71
+    tEQU     décalage et aller à l'état 72
+    tNOTEQU  décalage et aller à l'état 73
+    tPLUS    décalage et aller à l'état 74
+    tMOINS   décalage et aller à l'état 75
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+
+
+État 60
+
+   31 expression: element .
+   35 appelFonction: element . tPO args tPF
+
+    tPO  décalage et aller à l'état 29
+
+    $défaut  réduction par utilisation de la règle 31 (expression)
+
+
+État 61
+
+   23 si: tIF tPO conditions . tPF $@1 body $@2 tELSE $@3 body
+
+    tPF  décalage et aller à l'état 78
+
+
+État 62
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+   48 affectation: tID tEAGLE expression . tPV
+
+    tPLUS    décalage et aller à l'état 74
+    tMOINS   décalage et aller à l'état 75
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+    tPV      décalage et aller à l'état 79
+
+
+État 63
+
+   35 appelFonction: element . tPO args tPF
+   49 print: tPRINTF tPO element . tPF tPV
+
+    tPO  décalage et aller à l'état 29
+    tPF  décalage et aller à l'état 80
+
+
+État 64
+
+   40 decl_id: tID tEAGLE . expression
+   41        | tID tEAGLE . conditions
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 81
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+    conditions     aller à l'état 82
+
+
+État 65
+
+   38 declaration2: tVI . decl_id declaration2
+
+    tID  décalage et aller à l'état 54
+
+    decl_id  aller à l'état 83
+
+
+État 66
+
+   36 declaration: Type decl_id declaration2 . tPV
+
+    tPV  décalage et aller à l'état 84
+
+
+État 67
+
+   26 while: tWHILE $@4 tPO conditions . tPF $@5 body
+
+    tPF  décalage et aller à l'état 85
+
+
+État 68
+
+   45 conditions: expression tSUPEQU . expression
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 86
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 69
+
+   47 conditions: expression tSUP . expression
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 87
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 70
+
+   44 conditions: expression tINFEQU . expression
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 88
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 71
+
+   46 conditions: expression tINF . expression
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 89
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 72
+
+   43 conditions: expression tEQU . expression
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 90
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 73
+
+   42 conditions: expression tNOTEQU . expression
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 91
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 74
+
+   29 expression: expression tPLUS . expression
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 92
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 75
+
+   30 expression: expression tMOINS . expression
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 93
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 76
+
+   27 expression: expression tETOILE . expression
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 94
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 77
+
+   28 expression: expression tSLASH . expression
+
+    tENTIER  décalage et aller à l'état 11
+    tID      décalage et aller à l'état 12
+
+    expression     aller à l'état 95
+    element        aller à l'état 60
+    appelFonction  aller à l'état 14
+
+
+État 78
+
+   23 si: tIF tPO conditions tPF . $@1 body $@2 tELSE $@3 body
+
+    $défaut  réduction par utilisation de la règle 20 ($@1)
+
+    $@1  aller à l'état 96
+
+
+État 79
+
+   48 affectation: tID tEAGLE expression tPV .
+
+    $défaut  réduction par utilisation de la règle 48 (affectation)
+
+
+État 80
+
+   49 print: tPRINTF tPO element tPF . tPV
+
+    tPV  décalage et aller à l'état 97
+
+
+État 81
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+   40 decl_id: tID tEAGLE expression .
+   42 conditions: expression . tNOTEQU expression
+   43           | expression . tEQU expression
+   44           | expression . tINFEQU expression
+   45           | expression . tSUPEQU expression
+   46           | expression . tINF expression
+   47           | expression . tSUP expression
+
+    tSUPEQU  décalage et aller à l'état 68
+    tSUP     décalage et aller à l'état 69
+    tINFEQU  décalage et aller à l'état 70
+    tINF     décalage et aller à l'état 71
+    tEQU     décalage et aller à l'état 72
+    tNOTEQU  décalage et aller à l'état 73
+    tPLUS    décalage et aller à l'état 74
+    tMOINS   décalage et aller à l'état 75
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+
+    $défaut  réduction par utilisation de la règle 40 (decl_id)
+
+
+État 82
+
+   41 decl_id: tID tEAGLE conditions .
+
+    $défaut  réduction par utilisation de la règle 41 (decl_id)
+
+
+État 83
+
+   38 declaration2: tVI decl_id . declaration2
+
+    tVI  décalage et aller à l'état 65
+
+    $défaut  réduction par utilisation de la règle 37 (declaration2)
+
+    declaration2  aller à l'état 98
+
+
+État 84
+
+   36 declaration: Type decl_id declaration2 tPV .
+
+    $défaut  réduction par utilisation de la règle 36 (declaration)
+
+
+État 85
+
+   26 while: tWHILE $@4 tPO conditions tPF . $@5 body
+
+    $défaut  réduction par utilisation de la règle 25 ($@5)
+
+    $@5  aller à l'état 99
+
+
+État 86
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+   45 conditions: expression tSUPEQU expression .
+
+    tPLUS    décalage et aller à l'état 74
+    tMOINS   décalage et aller à l'état 75
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+
+    $défaut  réduction par utilisation de la règle 45 (conditions)
+
+
+État 87
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+   47 conditions: expression tSUP expression .
+
+    tPLUS    décalage et aller à l'état 74
+    tMOINS   décalage et aller à l'état 75
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+
+    $défaut  réduction par utilisation de la règle 47 (conditions)
+
+
+État 88
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+   44 conditions: expression tINFEQU expression .
+
+    tPLUS    décalage et aller à l'état 74
+    tMOINS   décalage et aller à l'état 75
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+
+    $défaut  réduction par utilisation de la règle 44 (conditions)
+
+
+État 89
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+   46 conditions: expression tINF expression .
+
+    tPLUS    décalage et aller à l'état 74
+    tMOINS   décalage et aller à l'état 75
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+
+    $défaut  réduction par utilisation de la règle 46 (conditions)
+
+
+État 90
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+   43 conditions: expression tEQU expression .
+
+    tPLUS    décalage et aller à l'état 74
+    tMOINS   décalage et aller à l'état 75
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+
+    $défaut  réduction par utilisation de la règle 43 (conditions)
+
+
+État 91
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+   42 conditions: expression tNOTEQU expression .
+
+    tPLUS    décalage et aller à l'état 74
+    tMOINS   décalage et aller à l'état 75
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+
+    $défaut  réduction par utilisation de la règle 42 (conditions)
+
+
+État 92
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   29           | expression tPLUS expression .
+   30           | expression . tMOINS expression
+
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+
+    $défaut  réduction par utilisation de la règle 29 (expression)
+
+
+État 93
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+   30           | expression tMOINS expression .
+
+    tETOILE  décalage et aller à l'état 76
+    tSLASH   décalage et aller à l'état 77
+
+    $défaut  réduction par utilisation de la règle 30 (expression)
+
+
+État 94
+
+   27 expression: expression . tETOILE expression
+   27           | expression tETOILE expression .
+   28           | expression . tSLASH expression
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+
+    $défaut  réduction par utilisation de la règle 27 (expression)
+
+
+État 95
+
+   27 expression: expression . tETOILE expression
+   28           | expression . tSLASH expression
+   28           | expression tSLASH expression .
+   29           | expression . tPLUS expression
+   30           | expression . tMOINS expression
+
+    $défaut  réduction par utilisation de la règle 28 (expression)
+
+
+État 96
+
+   23 si: tIF tPO conditions tPF $@1 . body $@2 tELSE $@3 body
+
+    tAO  décalage et aller à l'état 26
+
+    body  aller à l'état 100
+
+
+État 97
+
+   49 print: tPRINTF tPO element tPF tPV .
+
+    $défaut  réduction par utilisation de la règle 49 (print)
+
+
+État 98
+
+   38 declaration2: tVI decl_id declaration2 .
+
+    $défaut  réduction par utilisation de la règle 38 (declaration2)
+
+
+État 99
+
+   26 while: tWHILE $@4 tPO conditions tPF $@5 . body
+
+    tAO  décalage et aller à l'état 26
+
+    body  aller à l'état 101
+
+
+État 100
+
+   23 si: tIF tPO conditions tPF $@1 body . $@2 tELSE $@3 body
+
+    $défaut  réduction par utilisation de la règle 21 ($@2)
+
+    $@2  aller à l'état 102
+
+
+État 101
+
+   26 while: tWHILE $@4 tPO conditions tPF $@5 body .
+
+    $défaut  réduction par utilisation de la règle 26 (while)
+
+
+État 102
+
+   23 si: tIF tPO conditions tPF $@1 body $@2 . tELSE $@3 body
+
+    tELSE  décalage et aller à l'état 103
+
+
+État 103
+
+   23 si: tIF tPO conditions tPF $@1 body $@2 tELSE . $@3 body
+
+    $défaut  réduction par utilisation de la règle 22 ($@3)
+
+    $@3  aller à l'état 104
+
+
+État 104
+
+   23 si: tIF tPO conditions tPF $@1 body $@2 tELSE $@3 . body
+
+    tAO  décalage et aller à l'état 26
+
+    body  aller à l'état 105
+
+
+État 105
+
+   23 si: tIF tPO conditions tPF $@1 body $@2 tELSE $@3 body .
+
+    $défaut  réduction par utilisation de la règle 23 (si)
