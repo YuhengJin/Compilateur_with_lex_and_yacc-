@@ -53,13 +53,13 @@ si :
 				instr_add("JMPC",0xFFFF,0,0);
 				lnOld = (getmyindex());
 				print_tab_ins(lnOld-1);
-				printf("+++++++++++++++++++++++++++++++++before if body line is %d\n",lnOld ); 
+				printf("before if body line is %d\n",lnOld ); 
 			}
 		body
 			{	
 				lnOld2 = (getmyindex());
-				printf("+++++++++++++++++++++++++++++++++++++ fin of body  line is %d\n" ,lnOld2); 
-				printf("++++++++lnold is  %d   lnOld2 is %d \n" ,lnOld,lnOld2);
+				printf("fin of body  line is %d\n" ,lnOld2); 
+				printf("lnold is  %d   lnOld2 is %d \n" ,lnOld,lnOld2);
 				changejumpline(lnOld-1, lnOld2);	
 				print_tab_ins(lnOld-1);
 				instr_add("JMP",0xFFFF,0,0);
@@ -68,16 +68,17 @@ si :
 			{
 				printf("++++++++++++   else  ++++++++++++++++++\n");
 				lnNew = (getmyindex());
-				printf("+++++++++++++++++++++++++++++++++++++ begining of else  line is %d\n" ,lnNew); 
+				printf("begining of else  line is %d\n" ,lnNew); 
 
 			}
 		body
 			{
 				lnNew = (getmyindex());
-				printf("+++++++++++++++++++++++++++++++++++++fin else body line is %d\n" ,lnNew);
+				printf("fin else body line is %d\n" ,lnNew);
 				changejumpline(lnOld2, lnNew);	
 				print_tab_ins(lnOld2);
 			}
+
 ;
 
 
@@ -85,7 +86,7 @@ si :
 while : tWHILE 
 			{
 				lnOld = (getmyindex());
-				printf("+++++++++++++++++++++++++++++++++++++ Begin while  line is %d\n" ,lnOld); 
+				printf("Begin while  line is %d\n" ,lnOld); 
 			}
 		tPO conditions tPF
 			{
@@ -98,7 +99,7 @@ while : tWHILE
 			{
 				instr_add("JMP",lnOld,0,0);
 				lnNew = (getmyindex());
-				printf("+++++++++++++++++++++++++++++++++++++ Fin while  line is %d\n" ,lnNew); 
+				printf("Fin while  line is %d\n" ,lnNew); 
 				changejumpline(lnOld2-1, lnNew);	
 				print_tab_ins(lnOld2-1);
 			}
@@ -161,8 +162,6 @@ element:
 			}
 		| tENTIER
 			{
-				//int index_var = ts_add(1);
-				//int n = ts_add_tmp(tINT);
 				int index_var = ts_add_tmp();  
 		
 				printf ("Afc r0 %d \n",$1);
@@ -268,7 +267,24 @@ conditions :
 			instr_add("SUP",0,1,2);
 			instr_add("STORE",last_sys_adr(),0,0);
 		}
-
+	| tPO conditions tPF tAND tPO conditions tPF
+		{
+			printf("******* CONDITIONS ********");
+			instr_add("LOAD",0, last_sys_adr(),0);
+			ts_delete();
+			instr_add("LOAD",1, last_sys_adr(),0);
+			instr_add("AND",0,1,2);
+			instr_add("STORE",last_sys_adr(),0,0);
+		}
+	| tPO conditions tPF tOR tPO conditions tPF
+		{
+			printf("******* CONDITIONS ********");
+			instr_add("LOAD",0, last_sys_adr(),0);
+			ts_delete();
+			instr_add("LOAD",1, last_sys_adr(),0);
+			instr_add("OR",0,1,2);
+			instr_add("STORE",last_sys_adr(),0,0);
+		}
 		;
 
 
