@@ -8,7 +8,10 @@ See the Makefile for compile our project
 
 
 
-make clean
-make
-./compiler < eric.c  ou  ./compiler < complex.c
-cat testTabSym.txt
+  make clean
+
+  make
+  
+  ./compiler < eric.c  ou  ./compiler < complex.c
+  
+   cat testTabSym.txt
